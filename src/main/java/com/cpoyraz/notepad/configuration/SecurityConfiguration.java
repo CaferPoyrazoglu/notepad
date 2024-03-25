@@ -1,7 +1,6 @@
 package com.cpoyraz.notepad.configuration;
 
 
-import com.cpoyraz.notepad.model.enums.Role;
 import com.cpoyraz.notepad.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +37,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests((request) ->
                         request.requestMatchers(mvc.pattern("/api/auth/signup")).permitAll()
                                 .requestMatchers(mvc.pattern("/api/auth/signin")).permitAll()
+                                .requestMatchers(mvc.pattern("/api/note/**")).permitAll()
                                 .requestMatchers(mvc.pattern("/swagger-ui/**")).permitAll()
                                 .requestMatchers(mvc.pattern("/v3/api-docs/**")).permitAll()
                                 .requestMatchers(mvc.pattern("/actuator/**")).permitAll()
