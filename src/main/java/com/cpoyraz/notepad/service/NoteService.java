@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class NoteService {
     private final NoteRepository noteRepository;
 
-    public Note add(AddNoteRequest request){
+    public Note add(AddNoteRequest request) {
         Note note = new Note();
         note.setText(request.getNote());
         note.setTitle(request.getTitle());
