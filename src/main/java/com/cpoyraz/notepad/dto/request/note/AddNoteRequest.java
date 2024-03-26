@@ -5,12 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddNoteRequest {
-    private String note;
     private String title;
+    private String text;
+    private List<String> tags;
 }
 

@@ -12,23 +12,19 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
-import java.util.List;
 
-@Document(collection = "notes")
-@TypeAlias("Note")
+@Document(collection = "tags")
+@TypeAlias("Tag")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Note {
+public class Tag {
 
     @Id
     private String id;
-    private String title;
-    private String text;
 
-    @DBRef
-    private List<Tag> tags;
+    private String text;
 
     @DBRef
     private User createdBy;

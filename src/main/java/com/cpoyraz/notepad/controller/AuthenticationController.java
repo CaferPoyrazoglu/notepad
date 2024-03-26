@@ -1,7 +1,7 @@
 package com.cpoyraz.notepad.controller;
 
-import com.cpoyraz.notepad.dto.request.SignInRequest;
-import com.cpoyraz.notepad.dto.request.SignUpRequest;
+import com.cpoyraz.notepad.dto.request.auth.SignInRequest;
+import com.cpoyraz.notepad.dto.request.auth.SignUpRequest;
 import com.cpoyraz.notepad.dto.response.JwtAuthenticationResponse;
 import com.cpoyraz.notepad.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;

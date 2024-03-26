@@ -1,7 +1,7 @@
 package com.cpoyraz.notepad.service;
 
-import com.cpoyraz.notepad.dto.request.SignInRequest;
-import com.cpoyraz.notepad.dto.request.SignUpRequest;
+import com.cpoyraz.notepad.dto.request.auth.SignInRequest;
+import com.cpoyraz.notepad.dto.request.auth.SignUpRequest;
 import com.cpoyraz.notepad.dto.response.JwtAuthenticationResponse;
 import com.cpoyraz.notepad.model.User;
 import com.cpoyraz.notepad.model.enums.Role;
@@ -9,8 +9,12 @@ import com.cpoyraz.notepad.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,4 +42,9 @@ public class AuthenticationService {
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
+    public User getAuthenticatedUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> user = userRepository.findByEmail(authentication.getName());
+        return user.orElseThrow(() -> new IllegalArgumentException("Böyle bir kullanıcı bulunamadı."));
+    }
 }

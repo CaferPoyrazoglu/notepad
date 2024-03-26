@@ -2,6 +2,7 @@ package com.cpoyraz.notepad.controller;
 
 import com.cpoyraz.notepad.dto.request.note.AddNoteRequest;
 import com.cpoyraz.notepad.model.Note;
+import com.cpoyraz.notepad.service.AuthenticationService;
 import com.cpoyraz.notepad.service.NoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,10 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class NoteController {
     private final NoteService noteService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/add")
     public ResponseEntity<Note> add(@RequestBody AddNoteRequest request) {
-        return ResponseEntity.ok(noteService.add(request));
+        return ResponseEntity.ok(noteService.add(request, authenticationService.getAuthenticatedUser()));
     }
 
     @GetMapping("/all")

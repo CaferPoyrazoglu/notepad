@@ -1,4 +1,4 @@
-package com.cpoyraz.notepad.dto.request;
+package com.cpoyraz.notepad.dto.request.note;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SignUpRequest {
-    private String userName;
-    private String email;
-    private String password;
+public class AddTagRequest {
+    private String text;
 }
+
