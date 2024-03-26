@@ -15,7 +15,13 @@ public class CorsConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://192.168.1.5:8989")
+                        .allowedOrigins("http://notepad.cfapps.us10-001.hana.ondemand.com",
+                                "https://notepad.cfapps.us10-001.hana.ondemand.com",
+                                "http://notepadtest.netlify.app",
+                                "https://notepadtest.netlify.app",
+                                "http://localhost:5173",
+                                "http://localhost:8989"
+                        )
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowCredentials(true).maxAge(3600)
                         .allowedHeaders(HttpHeaders.CONTENT_TYPE,
