@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/note")
 @RequiredArgsConstructor
@@ -22,6 +24,11 @@ public class NoteController {
     @PostMapping("/add")
     public ResponseEntity<Note> add(@RequestBody AddNoteRequest request) {
         return ResponseEntity.ok(noteService.add(request, authenticationService.getAuthenticatedUser()));
+    }
+
+    @GetMapping("/{noteId}")
+    public ResponseEntity<Optional<Note>> getNoteById(@PathVariable String noteId) {
+        return ResponseEntity.ok(noteService.getNoteById(noteId));
     }
 
     @GetMapping("/all")

@@ -6,7 +6,6 @@ import com.cpoyraz.notepad.model.Tag;
 import com.cpoyraz.notepad.model.User;
 import com.cpoyraz.notepad.repository.NoteRepository;
 import com.cpoyraz.notepad.repository.TagRepository;
-import com.cpoyraz.notepad.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +14,8 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +34,10 @@ public class NoteService {
         note.setTags(tagList);
         note.setCreatedBy(authenticatedUser);
         return noteRepository.save(note);
+    }
+
+    public Optional<Note> getNoteById(String noteId){
+        return noteRepository.findById(noteId);
     }
 
     public Page<Note> getAllNotes(Pageable pageable) {
