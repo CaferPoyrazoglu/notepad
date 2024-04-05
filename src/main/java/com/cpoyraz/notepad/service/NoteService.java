@@ -10,10 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,14 +24,27 @@ public class NoteService {
     private final MongoTemplate mongoTemplate;
 
     public Note add(AddNoteRequest request, User authenticatedUser) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("text").in(request.getTags()));
-        List<Tag> tagList = mongoTemplate.find(query, Tag.class);
+        List<Tag> tags = new ArrayList<>();
+
+        for (String tagName : request.getTags()) {
+            Tag tag = tagRepository.findByText(tagName);
+
+            if (tag == null) {
+                tag = new Tag();
+                tag.setText(tagName);
+                tag.setCreatedBy(authenticatedUser);
+                tagRepository.save(tag);
+            }
+
+            tags.add(tag);
+        }
+
         Note note = new Note();
         note.setTitle(request.getTitle());
         note.setText(request.getText());
-        note.setTags(tagList);
+        note.setTags(tags);
         note.setCreatedBy(authenticatedUser);
+
         return noteRepository.save(note);
     }
 
