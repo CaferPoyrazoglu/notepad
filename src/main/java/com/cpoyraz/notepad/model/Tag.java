@@ -26,6 +26,8 @@ public class Tag {
 
     private String text;
 
+    private int count;
+
     @DBRef
     private User createdBy;
 

@@ -33,9 +33,12 @@ public class NoteService {
                 tag = new Tag();
                 tag.setText(tagName);
                 tag.setCreatedBy(authenticatedUser);
+                tag.setCount(0);
                 tagRepository.save(tag);
             }
 
+            tag.setCount(tag.getCount() + 1);
+            tagRepository.save(tag);
             tags.add(tag);
         }
 
