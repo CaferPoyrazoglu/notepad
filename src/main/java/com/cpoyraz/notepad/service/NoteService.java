@@ -58,4 +58,12 @@ public class NoteService {
     public Page<Note> getAllNotes(Pageable pageable) {
         return noteRepository.findAll(pageable);
     }
+
+    public Boolean deleteNote(String noteId) {
+        Note note = noteRepository.findById(noteId)
+                .orElseThrow(() -> new IllegalArgumentException("Böyle bir not bulunamadı."));
+
+        noteRepository.delete(note);
+        return true;
+    }
 }

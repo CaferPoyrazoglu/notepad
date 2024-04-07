@@ -37,4 +37,9 @@ public class NoteController {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         return ResponseEntity.ok(noteService.getAllNotes(pageable));
     }
+
+    @DeleteMapping("/delete/{noteId}")
+    public ResponseEntity<Boolean> deleteCompany(@PathVariable String noteId) {
+        return ResponseEntity.ok(noteService.deleteNote(noteId));
+    }
 }
