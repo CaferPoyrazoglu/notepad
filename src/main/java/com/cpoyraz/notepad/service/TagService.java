@@ -26,4 +26,12 @@ public class TagService {
     public Page<Tag> getAllTags(Pageable pageable) {
         return tagRepository.findAll(pageable);
     }
+
+    public Boolean deleteTag(String tagId) {
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new IllegalArgumentException("Böyle bir etiket bulunamadı."));
+
+        tagRepository.delete(tag);
+        return true;
+    }
 }

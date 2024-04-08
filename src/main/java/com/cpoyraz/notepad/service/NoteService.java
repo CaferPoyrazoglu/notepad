@@ -1,6 +1,7 @@
 package com.cpoyraz.notepad.service;
 
 import com.cpoyraz.notepad.dto.request.note.AddNoteRequest;
+import com.cpoyraz.notepad.dto.request.note.EditNoteRequest;
 import com.cpoyraz.notepad.model.Note;
 import com.cpoyraz.notepad.model.Tag;
 import com.cpoyraz.notepad.model.User;
@@ -66,4 +67,36 @@ public class NoteService {
         noteRepository.delete(note);
         return true;
     }
+
+    public Note edit(EditNoteRequest request, User authenticatedUser) {
+        Note note = noteRepository.findById(request.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Böyle bir not bulunamadı."));
+
+        if (!request.getTags().isEmpty()) {
+            List<Tag> tags = new ArrayList<>();
+
+            for (String tagName : request.getTags()) {
+                Tag tag = tagRepository.findByText(tagName);
+                if (tag == null) {
+                    tag = new Tag();
+                    tag.setText(tagName);
+                    tag.setCreatedBy(authenticatedUser);
+                }
+                tag.setCount(tag.getCount() + 1);
+                tagRepository.save(tag);
+                tags.add(tag);
+            }
+
+            note.setTags(tags);
+        }
+
+        if(!request.getTitle().isEmpty())
+            note.setTitle(request.getTitle());
+
+        if(!request.getText().isEmpty())
+            note.setText(request.getText());
+
+        return noteRepository.save(note);
+    }
+
 }

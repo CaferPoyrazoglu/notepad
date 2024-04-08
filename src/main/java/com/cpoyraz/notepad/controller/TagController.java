@@ -32,4 +32,9 @@ public class TagController {
         return ResponseEntity.ok(tagService.getAllTags(pageable));
     }
 
+    @DeleteMapping("/delete/{tagId}")
+    public ResponseEntity<Boolean> deleteTag(@PathVariable String tagId) {
+        return ResponseEntity.ok(tagService.deleteTag(tagId));
+    }
+
 }
